@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="android.provider.ContactsContract"/>
+<fullyQualifiedTypeName name="android.widget.ImageView"/>
+<fullyQualifiedTypeName name="com.google.zxing.BarcodeFormat"/>
+<fullyQualifiedTypeName name="android.graphics.Bitmap"/>
+<fullyQualifiedTypeName name="com.google.zxing.WriterException"/>
+<fullyQualifiedTypeName name="com.example.mysecondapp.R.id"/>
+<fullyQualifiedTypeName name="jim.h.common.android.lib.zxing.R"/>
+</qualifiedTypeNameHistroy>
