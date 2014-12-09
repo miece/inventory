@@ -1,2 +1,2 @@
 eclipse.preferences.version=1
-task-tag-projects-already-scanned=MyFirstApp,MySecondApp,Simple-Android-OCR,tess-two,ZXingLib,ZXingLibDemo
+task-tag-projects-already-scanned=MyFirstApp,Simple-Android-OCR,tess-two,ZXingLib,ZXingLibDemo,LibraryBarQRcodeScanner,appcompat_v7,MySecondApp

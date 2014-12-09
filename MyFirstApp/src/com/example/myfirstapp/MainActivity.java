@@ -1,7 +1,10 @@
 package com.example.myfirstapp;
 
 import jim.h.common.android.lib.zxing.config.ZXingLibConfig;
+import jim.h.common.android.lib.zxing.integrator.IntentIntegrator;
+//import jim.h.common.android.lib.zxing.sample.ZXingLibSampleActivity;
 //import jim.h.common.android.lib.zxing.sample.R;
+import jim.h.common.android.lib.zxing.integrator.IntentResult;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -12,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.os.Build;
 
@@ -35,6 +39,8 @@ public class MainActivity extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+        
+
         
         
     }
