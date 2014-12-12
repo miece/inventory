@@ -1,0 +1,42 @@
+import java.util.EnumSet;
+
+import android.os.Bundle;
+
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.abhi.barcode.frag.libv2.BarcodeFragment;
+import com.abhi.barcode.frag.libv2.IScanResultHandler;
+import com.abhi.barcode.frag.libv2.ScanResult;
+import com.google.zxing.BarcodeFormat;
+
+public class SampleMainActivity extends FragmentActivity implements IScanResultHandler {
+        
+        BarcodeFragment fragment;
+        Button btn;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sample_main);
+        fragment = (BarcodeFragment)getSupportFragmentManager().findFragmentById(R.id.sample);
+        fragment.setScanResultHandler(this);
+        btn = ((Button)findViewById(R.id.scan));
+        btn.setEnabled(false);
+
+        // Support for adding decoding type 
+        fragment.setDecodeFor(EnumSet.of(BarcodeFormat.QR_CODE));
+    }
+
+        @Override
+        public void scanResult(ScanResult result) {
+                btn.setEnabled(true);
+                Toast.makeText(this, result.getRawResult().getText(), Toast.LENGTH_LONG).show();
+        }
+        
+        public void scanAgain(View v){
+                fragment.restart();
+        }
+
+}

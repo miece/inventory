@@ -10,6 +10,8 @@
 	<string name="button_category">Categories</string>
 	<string name="button_help">Help</string>
     <string name="app_title">Inventory App</string>
+    <string name="scan">Scan</string>
+	<string name="scan_resut_lable">Scan Result:</string>
     
     
 </resources>

@@ -2,17 +2,18 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="" key="selection"/>
+		<item value="Layout" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="capture"/>
+			<item value="layout"/>
 			<item value="&lt;uses-permission android:name=”android.permission.CAMERA” /&gt; - See more at: http://techiedreams.com/android-zxing-barcode-scanner-integration/#sthash.wxDbmEOh.dpuf"/>
 			<item value="BarcodeFormat"/>
 			<item value="intent"/>
 			<item value="scan_result"/>
-			<item value="capture"/>
 			<item value="txtScanResult"/>
 			<item value="scan_resut_lable"/>
 		</list>

@@ -2,9 +2,18 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="android.provider.ContactsContract"/>
 <fullyQualifiedTypeName name="android.widget.ImageView"/>
-<fullyQualifiedTypeName name="com.google.zxing.BarcodeFormat"/>
 <fullyQualifiedTypeName name="android.graphics.Bitmap"/>
 <fullyQualifiedTypeName name="com.google.zxing.WriterException"/>
-<fullyQualifiedTypeName name="com.example.mysecondapp.R.id"/>
 <fullyQualifiedTypeName name="jim.h.common.android.lib.zxing.R"/>
+<fullyQualifiedTypeName name="com.example.mysecondapp.R.id"/>
+<fullyQualifiedTypeName name="android.widget.Button"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="com.example.simplefragment.SimpleFragmentActivity"/>
+<fullyQualifiedTypeName name="com.abhi.barcode.frag.libv2.BarcodeFragment"/>
+<fullyQualifiedTypeName name="com.abhi.barcode.frag.libv2.ScanResult"/>
+<fullyQualifiedTypeName name="android.app.Activity"/>
+<fullyQualifiedTypeName name="com.google.zxing.BarcodeFormat"/>
+<fullyQualifiedTypeName name="java.util.EnumSet"/>
 </qualifiedTypeNameHistroy>

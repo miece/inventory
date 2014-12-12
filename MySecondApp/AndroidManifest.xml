@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.simplefragment.SimpleFragmentActivity"
+            android:label="@string/title_activity_simple_fragment" >
+        </activity>
+        <activity
+            android:name="com.example.simplefragment.SimpleFragmentActivity"
+            android:label="@string/title_activity_simple_fragment" >
+        </activity>
     </application>
 
 </manifest>
