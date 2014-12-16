@@ -16,7 +16,8 @@
             android:textSize="20sp" />
 
 
-      <Button android:layout_width="fill_parent" 
+      <Button android:id="@+id/inventory_button" 
+          android:layout_width="fill_parent" 
           android:layout_height="wrap_content"
             android:text="@string/button_inventory"/>
   
@@ -26,11 +27,13 @@
       android:layout_height="wrap_content"
             android:text="@string/button_scan"/>
   
-  <Button android:layout_width="fill_parent"
+  <Button android:id="@+id/category_button" 
+      android:layout_width="fill_parent"
        android:layout_height="wrap_content"
             android:text="@string/button_category"/>
     
-      <Button android:layout_width="fill_parent" 
+      <Button android:id="@+id/help_button" 
+          android:layout_width="fill_parent" 
           android:layout_height="wrap_content"
             android:text="@string/button_help"/>
       

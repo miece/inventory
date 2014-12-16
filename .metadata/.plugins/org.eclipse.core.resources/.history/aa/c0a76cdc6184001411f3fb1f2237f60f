@@ -1,0 +1,137 @@
+package com.example.myfirstapp;
+
+import jim.h.common.android.lib.zxing.config.ZXingLibConfig;
+import jim.h.common.android.lib.zxing.integrator.IntentIntegrator;
+//import jim.h.common.android.lib.zxing.sample.ZXingLibSampleActivity;
+//import jim.h.common.android.lib.zxing.sample.R;
+import jim.h.common.android.lib.zxing.integrator.IntentResult;
+import android.app.Activity;
+import android.app.ActionBar;
+import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+import android.os.Build;
+
+
+
+public class MainActivity extends Activity {
+	
+	Context context = this;
+	boolean gotCode = false;
+    private Handler        handler = new Handler();
+    private TextView       txtScanResult;
+    private ZXingLibConfig zxingLibConfig;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+		txtScanResult = (TextView) findViewById(R.id.scan_result);
+        zxingLibConfig = new ZXingLibConfig();
+        zxingLibConfig.useFrontLight = true;
+        
+        View btnScan = findViewById(R.id.scan_button);
+
+
+        
+        btnScan.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IntentIntegrator.initiateScan(AddItemActivity.this, zxingLibConfig);
+                Intent intent = new Intent(context, AddItemActivity.class);
+                startActivity(intent); 
+            }
+        });
+        
+
+        
+        addListenerOnButton();
+        	
+        	
+
+
+        
+        
+    }
+    
+    
+	public void addListenerOnButton() {
+		 
+		final Context context = this;
+ 
+		Button button = (Button) findViewById(R.id.help_button);
+ 
+		button.setOnClickListener(new OnClickListener() {
+ 
+			@Override
+			public void onClick(View arg0) {
+ 
+			    Intent intent = new Intent(context, AddItemActivity.class);
+                            startActivity(intent);   
+ 
+			}
+ 
+		});
+ 
+	}
+    
+    
+
+
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    /*
+    public static class PlaceholderFragment extends Fragment {
+
+        public PlaceholderFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            return rootView;
+        }
+    }
+    */
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	final Context context = this;
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case IntentIntegrator.REQUEST_CODE: 
+                IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode,
+                        resultCode, data);
+                if (scanResult == null) {
+                    return;
+                }
+                final String result = scanResult.getContents();
+                if (result != null) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            txtScanResult.setText(result);
+
+                            gotCode = true;
+                        }
+                    });
+                }
+                break;
+            default:
+        }
+    }
+}

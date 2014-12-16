@@ -38,26 +38,40 @@ public final class R {
         public static final int zxinglib_icon=0x7f020002;
     }
     public static final class id {
-        public static final int action_settings=0x7f06000c;
+        public static final int OCR=0x7f060014;
+        public static final int action_settings=0x7f060019;
+        public static final int categorySpinner=0x7f060011;
+        public static final int categoryTextView=0x7f060010;
+        public static final int category_button=0x7f060009;
         public static final int container=0x7f060006;
-        public static final int scan_button=0x7f060007;
-        public static final int scan_result=0x7f060008;
+        public static final int detailsTextView=0x7f06000e;
+        public static final int getItemDetails=0x7f060015;
+        public static final int help_button=0x7f06000a;
+        public static final int inventory_button=0x7f060007;
+        public static final int itemDetailsInput=0x7f06000f;
+        public static final int itemName=0x7f06000d;
+        public static final int itemTextView=0x7f06000c;
+        public static final int newCategory=0x7f060013;
+        public static final int newCategoryCheck=0x7f060012;
+        public static final int scan_button=0x7f060008;
+        public static final int scan_result=0x7f06000b;
         /**  Messages IDs 
          */
         public static final int zxinglib_auto_focus=0x7f060000;
         public static final int zxinglib_decode=0x7f060001;
         public static final int zxinglib_decode_failed=0x7f060002;
         public static final int zxinglib_decode_succeeded=0x7f060003;
-        public static final int zxinglib_preview_view=0x7f060009;
+        public static final int zxinglib_preview_view=0x7f060016;
         public static final int zxinglib_quit=0x7f060004;
         public static final int zxinglib_return_scan_result=0x7f060005;
-        public static final int zxinglib_status_view=0x7f06000b;
-        public static final int zxinglib_viewfinder_view=0x7f06000a;
+        public static final int zxinglib_status_view=0x7f060018;
+        public static final int zxinglib_viewfinder_view=0x7f060017;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int fragment_main=0x7f030001;
-        public static final int zxinglib_capture=0x7f030002;
+        public static final int add_item=0x7f030001;
+        public static final int fragment_main=0x7f030002;
+        public static final int zxinglib_capture=0x7f030003;
     }
     public static final class menu {
         public static final int main=0x7f0a0000;

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/itemTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name" />
+
+    <EditText
+        android:id="@+id/itemName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/detailsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Details" />
+
+    <EditText
+        android:id="@+id/itemDetailsInput"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/categoryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category" />
+
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:id="@+id/newCategoryCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New:" />
+
+    <EditText
+        android:id="@+id/newCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10" >
+    </EditText>
+
+    <Button
+        android:id="@+id/OCR"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="Scan OCR" />
+
+    <Button
+        android:id="@+id/getItemDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="GetDetails" />
+    
+      <TextView android:layout_width="fill_parent" 
+		android:layout_height="wrap_content" 
+		android:text="@string/scan_resut_lable" />
+  
+	<TextView android:id="@+id/scan_result" 
+	    android:layout_width="fill_parent"
+		android:layout_height="wrap_content" />
+
+
+</LinearLayout>
