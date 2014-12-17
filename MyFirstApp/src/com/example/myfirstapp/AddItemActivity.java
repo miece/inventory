@@ -2,12 +2,13 @@ package com.example.myfirstapp;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class AddItemActivity extends Activity  {
 	
 	private TextView       txtScanResult;
-	
+	private EditText name;
 	
 	
 	@Override
@@ -16,12 +17,15 @@ public class AddItemActivity extends Activity  {
 		setContentView(R.layout.add_item);
 		
 		txtScanResult = (TextView) findViewById(R.id.scan_result);
-		
+		name = (EditText)findViewById(R.id.itemName);
 		
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
+			String title = extras.getString("title");
 		    String value = extras.getString("barcode");
-		    txtScanResult.setText(value);
+		    txtScanResult.setText(title);
+		    name.setText(title);
+		    
 		}
 		
 	}

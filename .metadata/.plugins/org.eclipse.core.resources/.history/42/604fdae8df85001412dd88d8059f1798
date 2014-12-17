@@ -1,0 +1,54 @@
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.ParseException;
+
+import org.htmlcleaner.CleanerProperties;
+import org.htmlcleaner.HtmlCleaner;
+import org.htmlcleaner.TagNode;
+import org.htmlcleaner.XPatherException;
+
+
+
+public class htmlparse {
+
+    public static void main(String[] args) throws IOException, XPatherException {
+    	
+    	String info = null;
+    	String barcode;
+    	
+        //cleaner properties
+        HtmlCleaner cleaner = new HtmlCleaner();
+        CleanerProperties props = cleaner.getProperties();
+        props.setAllowHtmlInsideAttributes(false);
+        props.setAllowMultiWordAttributes(false);
+        props.setRecognizeUnicodeChars(true);
+        props.setOmitComments(true);
+    	
+    	barcode = "731458341320";
+    	
+      //URL object
+        URL url = new URL("http://www.amazon.co.uk/s/ref=nb_sb_noss/280-2607582-1253941?url=search-alias%3Daps&field-keywords=" + barcode);
+
+        //HTML page root node
+        TagNode root = cleaner.clean(url);
+        String xer = "//../li[@id='result_0']//../h2";
+      //query XPath
+        Object[] node = root.evaluateXPath(xer);
+
+        if (node.length > 0) {
+            TagNode resultNode = (TagNode)node[0];
+            info = resultNode.getText().toString();
+        }
+        else{
+        	//throw new XPatherException("Unknown function " + "!");
+        	System.out.println("Nothing found");
+        }
+        
+        System.out.println(info);
+        
+    }
+    
+}

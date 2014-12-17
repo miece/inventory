@@ -1,0 +1,215 @@
+package com.example.myfirstapp;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.htmlcleaner.CleanerProperties;
+import org.htmlcleaner.HtmlCleaner;
+import org.htmlcleaner.TagNode;
+import org.htmlcleaner.XPatherException;
+import org.xml.sax.SAXException;
+
+import jim.h.common.android.lib.zxing.config.ZXingLibConfig;
+import jim.h.common.android.lib.zxing.integrator.IntentIntegrator;
+//import jim.h.common.android.lib.zxing.sample.ZXingLibSampleActivity;
+//import jim.h.common.android.lib.zxing.sample.R;
+import jim.h.common.android.lib.zxing.integrator.IntentResult;
+import android.app.Activity;
+import android.app.ActionBar;
+import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+import android.os.Build;
+
+
+
+public class MainActivity extends Activity {
+	
+	Context context = this;
+	boolean gotCode = false;
+	String thecode = "";
+	String theTitle = "";
+	
+    private Handler        handler = new Handler();
+    private TextView       txtScanResult;
+    private ZXingLibConfig zxingLibConfig;
+    
+ // example XPATH queries in the form of strings - will be used later
+    String xpath = "//../li[@id='result_0']//../h2";
+    
+    // TagNode object, its use will come in later
+    private static TagNode node;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+		txtScanResult = (TextView) findViewById(R.id.scan_result);
+        zxingLibConfig = new ZXingLibConfig();
+        zxingLibConfig.useFrontLight = true;
+        
+        View btnScan = findViewById(R.id.scan_button);
+
+
+        
+        btnScan.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IntentIntegrator.initiateScan(MainActivity.this, zxingLibConfig);
+                
+            }
+        });
+        
+
+        
+        addListenerOnButton();
+        	
+        	
+
+
+        
+        
+    }
+    
+ // a method that helps me retrieve the stock option's data based off the name (i.e. GOUAA is one of Google's stock options)
+    public void getTheTitle() throws XPatherException, ParserConfigurationException,SAXException, IOException, XPatherException {
+    	 // the URL whose HTML I want to retrieve and parse
+    	String info = "";
+        String option_url = "http://www.amazon.co.uk/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=885370863932";
+        
+     // this is where the HtmlCleaner comes in, I initialize it here
+        HtmlCleaner cleaner = new HtmlCleaner();
+        CleanerProperties props = cleaner.getProperties();
+        props.setAllowHtmlInsideAttributes(true);
+        props.setAllowMultiWordAttributes(true);
+        props.setRecognizeUnicodeChars(true);
+        props.setOmitComments(true);
+ 
+        // open a connection to the desired URL
+        URL url = new URL(option_url);
+        URLConnection conn = url.openConnection();
+        
+        //use the cleaner to "clean" the HTML and return it as a TagNode object
+        node = cleaner.clean(new InputStreamReader(conn.getInputStream()));
+        
+        Object[] info_nodes = node.evaluateXPath(xpath);
+        
+        if (info_nodes.length > 0) {
+            // casted to a TagNode
+            TagNode info_node = (TagNode) info_nodes[0];
+            // how to retrieve the contents as a string
+            info = info_node.getChildren().iterator().next().toString().trim();
+        }
+        
+        Log.d("--------------", info);
+ 
+    }
+    
+    
+	public void addListenerOnButton() {
+		 
+		final Context context = this;
+ 
+		Button button = (Button) findViewById(R.id.help_button);
+ 
+		button.setOnClickListener(new OnClickListener() {
+ 
+			@Override
+			public void onClick(View arg0) {
+ 
+			    Intent intent = new Intent(context, AddItemActivity.class);
+                            startActivity(intent);   
+ 
+			}
+ 
+		});
+ 
+	}
+	
+	
+
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    /*
+    public static class PlaceholderFragment extends Fragment {
+
+        public PlaceholderFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            return rootView;
+        }
+    }
+    */
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	final Context context = this;
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case IntentIntegrator.REQUEST_CODE: 
+                IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode,
+                        resultCode, data);
+                if (scanResult == null) {
+                    return;
+                }
+                final String result = scanResult.getContents();
+                if (result != null) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            txtScanResult.setText(result);
+                            try {
+								getTheTitle();
+							} catch (XPatherException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (ParserConfigurationException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (SAXException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+	
+                            thecode = txtScanResult.toString();
+                            Intent intent = new Intent(context, AddItemActivity.class);
+                            Bundle extras = new Bundle();
+                            extras.putString("barcode", result);
+                            extras.putString("title", theTitle);
+                            //intent.putExtra("barcode",result);
+                            intent.putExtras(extras);
+                            startActivity(intent); 
+
+                        }
+                    });
+                }
+                break;
+            default:
+        }
+    }
+}

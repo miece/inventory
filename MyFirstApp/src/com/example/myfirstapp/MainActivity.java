@@ -1,5 +1,18 @@
 package com.example.myfirstapp;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.htmlcleaner.CleanerProperties;
+import org.htmlcleaner.HtmlCleaner;
+import org.htmlcleaner.TagNode;
+import org.htmlcleaner.XPatherException;
+import org.xml.sax.SAXException;
+
 import jim.h.common.android.lib.zxing.config.ZXingLibConfig;
 import jim.h.common.android.lib.zxing.integrator.IntentIntegrator;
 //import jim.h.common.android.lib.zxing.sample.ZXingLibSampleActivity;
@@ -12,6 +25,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,13 +44,30 @@ public class MainActivity extends Activity {
 	Context context = this;
 	boolean gotCode = false;
 	String thecode = "";
+	String theTitle = "";
 	
     private Handler        handler = new Handler();
     private TextView       txtScanResult;
     private ZXingLibConfig zxingLibConfig;
+    
+    // HTML page
+    static final String BLOG_URL = "http://www.amazon.co.uk/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=";
+    String barcode = "";
+    // example XPATH queries in the form of strings - will be used later
+    String xpath = "//../li[@id='result_0']//../h2";
+    //String xpath_price = "//../li[@id='result_0']//../span[contains(@class,'s-price')]/text()";
+    
+    // TagNode object, its use will come in later
+    private static TagNode node;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    	
+    	if (android.os.Build.VERSION.SDK_INT > 9) {
+    	    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+    	    StrictMode.setThreadPolicy(policy);
+    	}
+    	
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
@@ -55,16 +87,10 @@ public class MainActivity extends Activity {
             }
         });
         
-
-        
         addListenerOnButton();
-        	
-        	
-
-
-        
-        
     }
+    
+
     
     
 	public void addListenerOnButton() {
@@ -79,16 +105,44 @@ public class MainActivity extends Activity {
 			public void onClick(View arg0) {
  
 			    Intent intent = new Intent(context, AddItemActivity.class);
-                            startActivity(intent);   
- 
+                startActivity(intent);   
 			}
  
 		});
  
 	}
-    
-    
-
+	
+	public String getBlogStats(String code) throws Exception {
+        String stats = "";
+ 
+        // config cleaner properties
+        HtmlCleaner htmlCleaner = new HtmlCleaner();
+        CleanerProperties props = htmlCleaner.getProperties();
+        props.setAllowHtmlInsideAttributes(false);
+        props.setAllowMultiWordAttributes(true);
+        props.setRecognizeUnicodeChars(true);
+        props.setOmitComments(true);
+ 
+        // create URL object
+        URL url = new URL(BLOG_URL + code);
+        // get HTML page root node
+        TagNode root = htmlCleaner.clean(url);
+ 
+        // query XPath
+        Object[] statsNode = root.evaluateXPath(xpath);
+        // process data if found any node
+        if(statsNode.length > 0) {
+            // I already know there's only one node, so pick index at 0.
+            TagNode resultNode = (TagNode)statsNode[0];
+            // get text data from HTML node
+            stats = resultNode.getText().toString();
+        }
+ 
+        // return value
+        return stats;
+    }
+	
+	
 
     /**
      * A placeholder fragment containing a simple view.
@@ -125,11 +179,24 @@ public class MainActivity extends Activity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            txtScanResult.setText(result);
-                            
+                            //txtScanResult.setText(result);
+                            String value = "";
+                            try {
+                            	value = getBlogStats(result);
+                            	txtScanResult.setText(value);
+								//Log.d("---------", getBlogStats());
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+	
                             thecode = txtScanResult.toString();
                             Intent intent = new Intent(context, AddItemActivity.class);
-                            intent.putExtra("barcode",result);
+                            Bundle extras = new Bundle();
+                            extras.putString("barcode", result);
+                            extras.putString("title", value);
+                            	//intent.putExtra("barcode",result);
+                            intent.putExtras(extras);
                             startActivity(intent); 
 
                         }
