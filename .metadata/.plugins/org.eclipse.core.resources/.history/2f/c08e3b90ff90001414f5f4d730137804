@@ -1,0 +1,7 @@
+package com.example.noteapp;
+
+import android.app.Application;
+
+public class NoteAppApplication extends Application {
+
+}
