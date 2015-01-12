@@ -1,0 +1,7 @@
+<RelativeLayout>
+  <LinearLayout>
+    <!-- All your other elements in here -->
+  </LinearLayout>
+  <TextView
+    />
+</RelativeLayout>

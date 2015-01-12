@@ -100,8 +100,8 @@ public class MainActivity extends ListActivity {
    
 	private void refreshPostList() {
 
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("Post");
-		query.whereEqualTo("author", ParseUser.getCurrentUser());
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("Inventory");
+		//query.whereEqualTo("author", ParseUser.getCurrentUser());
 
 		setProgressBarIndeterminateVisibility(true);
 
@@ -116,7 +116,7 @@ public class MainActivity extends ListActivity {
 					// and notify the adapter
 					posts.clear();
 					for (ParseObject post : postList) {
-						Note note = new Note(post.getObjectId(), post.getString("title"), post.getString("content"));
+						Note note = new Note(post.getObjectId(), post.getString("title"), post.getString("description"));
 						posts.add(note);
 					}
 					((ArrayAdapter<Note>) getListAdapter()).notifyDataSetChanged();

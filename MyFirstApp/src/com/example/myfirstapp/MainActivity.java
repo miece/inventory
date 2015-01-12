@@ -15,6 +15,7 @@ import org.xml.sax.SAXException;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import jim.h.common.android.lib.zxing.config.ZXingLibConfig;
 import jim.h.common.android.lib.zxing.integrator.IntentIntegrator;
@@ -76,6 +77,13 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
+        
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser == null) {
+            loadLoginView();
+        }
+        
+        
 		txtScanResult = (TextView) findViewById(R.id.scan_result);
         zxingLibConfig = new ZXingLibConfig();
         zxingLibConfig.useFrontLight = true;
@@ -94,9 +102,29 @@ public class MainActivity extends Activity {
         });
         
         addListenerOnButton();
+        openViewItem();
     }
     
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main_menu, menu);
+		return true;
+	}
+    
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+        	ParseUser.logOut();
+            loadLoginView();
+        }
+        return super.onOptionsItemSelected(item);
+    }
     
     
 	public void addListenerOnButton() {
@@ -110,13 +138,34 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
  
-			    Intent intent = new Intent(context, AddItemActivity.class);
+			    //Intent intent = new Intent(context, AddItemActivity.class);
+                //startActivity(intent);   
+			}
+ 
+		});
+ 
+	}
+	
+	public void openViewItem() {
+		 
+		final Context context = this;
+ 
+		Button button = (Button) findViewById(R.id.inventory_button);
+ 
+		button.setOnClickListener(new OnClickListener() {
+ 
+			@Override
+			public void onClick(View arg0) {
+ 
+			    Intent intent = new Intent(context, ListItemActivity.class);
                 startActivity(intent);   
 			}
  
 		});
  
 	}
+	
+	
 	
 	public String getBlogStats(String code) throws Exception {
         String stats = "";
@@ -201,14 +250,24 @@ public class MainActivity extends Activity {
 	
                             thecode = txtScanResult.toString();
                             Intent intent = new Intent(context, AddItemActivity.class);
+                            
+                            /****
                             Bundle extras = new Bundle();
-                            extras.putString("barcode", result);
+                            //extras.putString("barcode", result);
+
                             extras.putString("title", value);
                             // parse create object & create field called barcode and title
 
                             	//intent.putExtra("barcode",result);
                             intent.putExtras(extras);
+                            ****/
+                            intent.putExtra("Uniqid","from_Main"); 
+                            intent.putExtra("title", value);
+                            
+                            
+                            
                             startActivity(intent); 
+                            finish();
 
                         }
                     });
@@ -217,4 +276,13 @@ public class MainActivity extends Activity {
             default:
         }
     }
+    
+	
+	private void loadLoginView() {
+		Intent intent = new Intent(this, LoginActivity.class);
+	    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+	    startActivity(intent);
+	}
+	
 }

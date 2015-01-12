@@ -1,0 +1,11 @@
+<RelativeLayout>
+  <LinearLayout>
+     <TextView
+        android:id="@+id/itemTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title" />
+  </LinearLayout>
+  <TextView
+    />
+</RelativeLayout>

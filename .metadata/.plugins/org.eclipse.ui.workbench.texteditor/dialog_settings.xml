@@ -8,14 +8,14 @@
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="label"/>
-			<item value="googleplusutil"/>
-			<item value="internet"/>
-			<item value="title"/>
-			<item value="onActivityResult"/>
-			<item value="capture"/>
-			<item value="layout"/>
-			<item value="&lt;uses-permission android:name=”android.permission.CAMERA” /&gt; - See more at: http://techiedreams.com/android-zxing-barcode-scanner-integration/#sthash.wxDbmEOh.dpuf"/>
+			<item value="no result"/>
+			<item value="no result]"/>
+			<item value="post"/>
+			<item value="dismiss"/>
+			<item value="txtScanResult"/>
+			<item value="Post"/>
+			<item value="current"/>
+			<item value="help"/>
 		</list>
 		<list key="replacehistory">
 		</list>

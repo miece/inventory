@@ -13,7 +13,7 @@
     <string name="scan">Scan</string>
     <string name="scan_resut_lable">Scan Result:</string>
     <string name="title_activity_login">Login</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="inventory_add">Add / Edit</string>
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
@@ -26,5 +26,17 @@
     <string name="sign_up_text">Sign Up!</string>
     <string name="logout_label">Logout</string>
     <string name="title_activity_sign_up">Sign Up</string>
+    <string name="title_list_item">Inventory List</string>
+    <string name="action_new">New Note</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="save_button">Save</string>
+    <string name="item_hint_title">Item Title</string>
+    <string name="item_hint_detail">Item Description</string>
+    <string name="item_hint_category">Item Category</string>
+    <string name="edit_error_message">You cannot save a note without a title</string>
+    <string name="edit_error_title">Error!</string>
+    <string name="forgotten_password">Password Reset</string>
+    <string name="title_activity_password_reset">Reset Password</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

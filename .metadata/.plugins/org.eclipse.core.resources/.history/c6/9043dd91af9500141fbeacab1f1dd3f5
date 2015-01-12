@@ -1,0 +1,49 @@
+package com.example.myfirstapp;
+
+import com.keyconsultant.parse.logintutorial.R;
+import com.keyconsultant.parse.logintutorial.model.user.UserManager;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.EditText;
+
+public class ResetPasswordActivity implements OnClickListener {
+	
+	
+	private EditText emailEditText;
+
+	
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.password_reset, container);
+        emailEditText = (EditText) view.findViewById(R.id.emailField);
+        view.findViewById(R.id.resetButton).setOnClickListener(this);
+        
+        
+        getDialog().setTitle("Enter Email Below.");
+
+        return view;
+    }
+	
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.resetButton:
+			submitForgotPassword();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	private void submitForgotPassword(){
+		
+		
+		UserManager.getInstance().forgotPassword(emailEditText.getText().toString());
+		this.dismiss();
+	}
+
+}

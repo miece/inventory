@@ -1,0 +1,83 @@
+package com.example.myfirstapp;
+
+
+
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class AddItemActivity extends Activity  {
+	
+	private TextView       txtScanResult;
+	private EditText name;
+	
+	
+	private ItemDetails item;
+	
+	private EditText titleEditText;
+	private EditText detailsEditText;
+	private EditText categoryEditText;
+	private String itemTitle;
+	private String itemDetails;
+	private String itemCategory;
+	
+	private Button saveNoteButton;
+	private Button cancelButton;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		Intent intent = this.getIntent();
+		
+		titleEditText = (EditText) findViewById(R.id.itemTitle);
+	    detailsEditText = (EditText) findViewById(R.id.itemDetailsInput);
+	    categoryEditText = (EditText) findViewById(R.id.itemCategory);
+	    
+	    if (intent.getExtras() != null) {
+	        item = new ItemDetails(intent.getStringExtra("itemId"), intent.getStringExtra("itemTitle"), intent.getStringExtra("itemContent"));
+	 
+	        titleEditText.setText(item.getTitle());
+	        detailsEditText.setText(item.getContent());
+	        
+	    }
+
+		
+		setContentView(R.layout.add_item);
+		
+		//txtScanResult = (TextView) findViewById(R.id.scan_result);
+		name = (EditText)findViewById(R.id.itemTitle);
+		
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			String title = extras.getString("title");
+		    String value = extras.getString("barcode");
+		    //txtScanResult.setText(title);
+		    name.setText(title);
+		    
+		}
+		
+		cancelButton = (Button)findViewById(R.id.cancel_button);
+		cancelButton.setOnClickListener(new View.OnClickListener() {
+	        @Override
+	        public void onClick(View v) {
+	        	Intent intent = new Intent(getApplicationContext(), ListItemActivity.class);
+	        	startActivity(intent);
+	        	finish();
+	        }
+	    });
+		
+	}
+	
+	
+	
+	
+	
+
+}

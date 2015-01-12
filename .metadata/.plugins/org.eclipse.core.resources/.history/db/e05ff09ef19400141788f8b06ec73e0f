@@ -1,0 +1,27 @@
+package com.example.myfirstapp;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.app.ListActivity;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+
+public class ListItemActivity extends ListActivity {
+	
+	private List<ItemDetails> items;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+	    super.onCreate(savedInstanceState);
+	    setContentView(R.layout.list_item);
+	 
+	    items = new ArrayList<ItemDetails>();
+	    ArrayAdapter<ItemDetails> adapter = new ArrayAdapter<ItemDetails>(this, R.layout.list_item_layout, items);
+	    setListAdapter(adapter);
+	 
+	    refreshPostList();
+	}
+	
+
+}

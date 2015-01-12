@@ -464,59 +464,69 @@ containing a value of this type.
         public static final int common_signin_btn_text_normal_light=0x7f020017;
         public static final int common_signin_btn_text_pressed_dark=0x7f020018;
         public static final int common_signin_btn_text_pressed_light=0x7f020019;
-        public static final int ic_launcher=0x7f02001a;
-        public static final int ic_plusone_medium_off_client=0x7f02001b;
-        public static final int ic_plusone_small_off_client=0x7f02001c;
-        public static final int ic_plusone_standard_off_client=0x7f02001d;
-        public static final int ic_plusone_tall_off_client=0x7f02001e;
-        public static final int logo=0x7f02001f;
-        public static final int powered_by_google_dark=0x7f020020;
-        public static final int powered_by_google_light=0x7f020021;
-        public static final int zxinglib_icon=0x7f020022;
+        public static final int ic_action_chat=0x7f02001a;
+        public static final int ic_action_edit=0x7f02001b;
+        public static final int ic_action_new=0x7f02001c;
+        public static final int ic_action_refresh=0x7f02001d;
+        public static final int ic_launcher=0x7f02001e;
+        public static final int ic_plusone_medium_off_client=0x7f02001f;
+        public static final int ic_plusone_small_off_client=0x7f020020;
+        public static final int ic_plusone_standard_off_client=0x7f020021;
+        public static final int ic_plusone_tall_off_client=0x7f020022;
+        public static final int logo=0x7f020023;
+        public static final int powered_by_google_dark=0x7f020024;
+        public static final int powered_by_google_light=0x7f020025;
+        public static final int zxinglib_icon=0x7f020026;
     }
     public static final class id {
-        public static final int OCR=0x7f070031;
-        public static final int action_settings=0x7f070036;
+        public static final int LinearLayout02=0x7f070033;
+        public static final int action_logout=0x7f07003c;
+        public static final int action_new=0x7f07003b;
+        public static final int action_refresh=0x7f07003a;
+        public static final int action_settings=0x7f070039;
         public static final int adjust_height=0x7f070002;
         public static final int adjust_width=0x7f070001;
         public static final int book_now=0x7f070012;
         public static final int buyButton=0x7f07000c;
         public static final int buy_now=0x7f070011;
         public static final int buy_with_google=0x7f070010;
-        public static final int categorySpinner=0x7f07002e;
-        public static final int categoryTextView=0x7f07002d;
-        public static final int category_button=0x7f070024;
+        public static final int cancel_button=0x7f070035;
+        public static final int categoryTextView=0x7f070031;
+        public static final int category_button=0x7f070025;
         public static final int classic=0x7f070014;
-        public static final int container=0x7f070021;
-        public static final int detailsTextView=0x7f07002b;
+        public static final int container=0x7f070022;
+        public static final int db1_root=0x7f07002c;
+        public static final int detailTextView=0x7f07002f;
         public static final int donate_with_google=0x7f070013;
-        public static final int emailField=0x7f070027;
-        public static final int getItemDetails=0x7f070032;
+        public static final int emailField=0x7f070029;
+        public static final int emailTextViewTitle=0x7f070028;
+        public static final int forgottenPasswordText=0x7f070021;
         public static final int grayscale=0x7f070015;
-        public static final int help_button=0x7f070025;
+        public static final int help_button=0x7f070026;
         public static final int holo_dark=0x7f070007;
         public static final int holo_light=0x7f070008;
         public static final int hybrid=0x7f070006;
-        public static final int inventory_button=0x7f070022;
-        public static final int itemDetailsInput=0x7f07002c;
-        public static final int itemName=0x7f07002a;
-        public static final int itemTextView=0x7f070029;
+        public static final int inventory_button=0x7f070023;
+        public static final int itemCategory=0x7f070032;
+        public static final int itemDetailsInput=0x7f070030;
+        public static final int itemTextView=0x7f07002d;
+        public static final int itemTitle=0x7f07002e;
         public static final int loginButton=0x7f07001f;
         public static final int match_parent=0x7f07000e;
         public static final int monochrome=0x7f070016;
-        public static final int newCategory=0x7f070030;
-        public static final int newCategoryCheck=0x7f07002f;
         public static final int none=0x7f070000;
         public static final int normal=0x7f070003;
         public static final int passwordField=0x7f07001e;
         public static final int production=0x7f070009;
+        public static final int resetPasswordButton=0x7f07002a;
         public static final int sandbox=0x7f07000a;
         public static final int satellite=0x7f070004;
-        public static final int scan_button=0x7f070023;
-        public static final int scan_result=0x7f070026;
+        public static final int save_button=0x7f070034;
+        public static final int scan_button=0x7f070024;
+        public static final int scan_result=0x7f070027;
         public static final int selectionDetails=0x7f07000d;
         public static final int signUpText=0x7f070020;
-        public static final int signupButton=0x7f070028;
+        public static final int signupButton=0x7f07002b;
         public static final int strict_sandbox=0x7f07000b;
         public static final int terrain=0x7f070005;
         public static final int usernameField=0x7f07001d;
@@ -527,11 +537,11 @@ containing a value of this type.
         public static final int zxinglib_decode=0x7f070018;
         public static final int zxinglib_decode_failed=0x7f070019;
         public static final int zxinglib_decode_succeeded=0x7f07001a;
-        public static final int zxinglib_preview_view=0x7f070033;
+        public static final int zxinglib_preview_view=0x7f070036;
         public static final int zxinglib_quit=0x7f07001b;
         public static final int zxinglib_return_scan_result=0x7f07001c;
-        public static final int zxinglib_status_view=0x7f070035;
-        public static final int zxinglib_viewfinder_view=0x7f070034;
+        public static final int zxinglib_status_view=0x7f070038;
+        public static final int zxinglib_viewfinder_view=0x7f070037;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f090000;
@@ -539,17 +549,20 @@ containing a value of this type.
     public static final class layout {
         public static final int activity_login=0x7f030000;
         public static final int activity_main=0x7f030001;
-        public static final int activity_sign_up=0x7f030002;
-        public static final int add_item=0x7f030003;
-        public static final int fragment_main=0x7f030004;
-        public static final int list_item=0x7f030005;
-        public static final int list_item_layout=0x7f030006;
-        public static final int zxinglib_capture=0x7f030007;
+        public static final int activity_password_reset=0x7f030002;
+        public static final int activity_sign_up=0x7f030003;
+        public static final int add_item=0x7f030004;
+        public static final int fragment_main=0x7f030005;
+        public static final int list_item=0x7f030006;
+        public static final int list_item_layout=0x7f030007;
+        public static final int zxinglib_capture=0x7f030008;
     }
     public static final class menu {
         public static final int login=0x7f0b0000;
         public static final int main=0x7f0b0001;
-        public static final int sign_up=0x7f0b0002;
+        public static final int main_menu=0x7f0b0002;
+        public static final int password_reset=0x7f0b0003;
+        public static final int sign_up=0x7f0b0004;
     }
     public static final class raw {
         public static final int gtm_analytics=0x7f040000;
@@ -557,6 +570,8 @@ containing a value of this type.
     }
     public static final class string {
         public static final int accept=0x7f060002;
+        public static final int action_new=0x7f06003f;
+        public static final int action_refresh=0x7f060040;
         public static final int action_settings=0x7f060026;
         public static final int app_name=0x7f060025;
         public static final int app_title=0x7f06002d;
@@ -667,14 +682,22 @@ containing a value of this type.
         public static final int create_calendar_message=0x7f060005;
         public static final int create_calendar_title=0x7f060004;
         public static final int decline=0x7f060003;
+        public static final int edit_error_message=0x7f060045;
+        public static final int edit_error_title=0x7f060046;
         public static final int edit_message=0x7f060027;
         public static final int email_hint=0x7f060034;
-        public static final int hello_world=0x7f060031;
+        public static final int forgotten_password=0x7f060047;
+        public static final int hello_world=0x7f060049;
+        public static final int inventory_add=0x7f060031;
+        public static final int item_hint_category=0x7f060044;
+        public static final int item_hint_detail=0x7f060043;
+        public static final int item_hint_title=0x7f060042;
         public static final int login_button_label=0x7f06003a;
         public static final int login_error_message=0x7f060038;
         public static final int login_error_title=0x7f060039;
         public static final int logout_label=0x7f06003c;
         public static final int password_hint=0x7f060033;
+        public static final int save_button=0x7f060041;
         public static final int scan=0x7f06002e;
         public static final int scan_resut_lable=0x7f06002f;
         public static final int sign_up_button_label=0x7f060035;
@@ -684,7 +707,9 @@ containing a value of this type.
         public static final int store_picture_message=0x7f060001;
         public static final int store_picture_title=0x7f060000;
         public static final int title_activity_login=0x7f060030;
+        public static final int title_activity_password_reset=0x7f060048;
         public static final int title_activity_sign_up=0x7f06003d;
+        public static final int title_list_item=0x7f06003e;
         public static final int username_hint=0x7f060032;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 

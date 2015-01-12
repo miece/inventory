@@ -19,21 +19,21 @@ public final class R {
 		public static final int zxinglib_viewfinder_mask = 0x7f08001b;
 	}
 	public static final class drawable {
-		public static final int zxinglib_icon = 0x7f020022;
+		public static final int zxinglib_icon = 0x7f020026;
 	}
 	public static final class id {
 		public static final int zxinglib_auto_focus = 0x7f070017;
 		public static final int zxinglib_decode = 0x7f070018;
 		public static final int zxinglib_decode_failed = 0x7f070019;
 		public static final int zxinglib_decode_succeeded = 0x7f07001a;
-		public static final int zxinglib_preview_view = 0x7f070033;
+		public static final int zxinglib_preview_view = 0x7f070036;
 		public static final int zxinglib_quit = 0x7f07001b;
 		public static final int zxinglib_return_scan_result = 0x7f07001c;
-		public static final int zxinglib_status_view = 0x7f070035;
-		public static final int zxinglib_viewfinder_view = 0x7f070034;
+		public static final int zxinglib_status_view = 0x7f070038;
+		public static final int zxinglib_viewfinder_view = 0x7f070037;
 	}
 	public static final class layout {
-		public static final int zxinglib_capture = 0x7f030007;
+		public static final int zxinglib_capture = 0x7f030008;
 	}
 	public static final class raw {
 		public static final int zxinglib_beep = 0x7f040001;
