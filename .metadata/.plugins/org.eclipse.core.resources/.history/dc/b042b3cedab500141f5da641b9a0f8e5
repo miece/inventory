@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="35dip"
+        android:text="Inventory App"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/inventory_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/fbutton_color_peter_river"
+        android:padding="25dip"
+        android:text="Inventory" />
+
+    <Button
+        android:id="@+id/scan_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="25dip"
+        android:text="Scan Barcode" />
+
+    <Button
+        android:id="@+id/category_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="25dip"
+        android:text="Category" />
+
+    <Button
+        android:id="@+id/help_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="25dip"
+        android:text="Help" />
+
+</LinearLayout>

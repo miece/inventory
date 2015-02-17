@@ -1,5 +1,10 @@
 package com.example.myfirstapp;
 
+/*
+ * Create a class that will hold our Item data. 
+ * Contains item id, details, title, category fields and their getters and setters.
+ */
+
 public class ItemDetails {
 	
 	private String id;

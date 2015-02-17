@@ -1,18 +1,38 @@
 package com.example.myfirstapp;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.htmlcleaner.CleanerProperties;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;
 import org.htmlcleaner.XPatherException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import org.jsoup.Jsoup;
+
+
+import com.example.myfirstapp.amazonSigner.SignedRequestsHelper;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -50,21 +70,13 @@ public class MainActivity extends Activity {
 	String thecode = "";
 	String theTitle = "";
 	
-	
+	org.jsoup.nodes.Document doc1;
 	
     private Handler        handler = new Handler();
     private TextView       txtScanResult;
     private ZXingLibConfig zxingLibConfig;
     
-    // HTML page
-    static final String BLOG_URL = "http://www.amazon.co.uk/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=";
-    String barcode = "";
-    // example XPATH queries in the form of strings - will be used later
-    String xpath = "//../li[@id='result_0']//../h2";
-    //String xpath_price = "//../li[@id='result_0']//../span[contains(@class,'s-price')]/text()";
-    
-    // TagNode object, its use will come in later
-    private static TagNode node;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,35 +179,261 @@ public class MainActivity extends Activity {
 	
 	
 	
-	public String getBlogStats(String code) throws Exception {
-        String stats = "";
- 
-        // config cleaner properties
-        HtmlCleaner htmlCleaner = new HtmlCleaner();
-        CleanerProperties props = htmlCleaner.getProperties();
-        props.setAllowHtmlInsideAttributes(false);
-        props.setAllowMultiWordAttributes(true);
-        props.setRecognizeUnicodeChars(true);
-        props.setOmitComments(true);
- 
-        // create URL object
-        URL url = new URL(BLOG_URL + code);
-        // get HTML page root node
-        TagNode root = htmlCleaner.clean(url);
- 
-        // query XPath
-        Object[] statsNode = root.evaluateXPath(xpath);
-        // process data if found any node
-        if(statsNode.length > 0) {
-            // I already know there's only one node, so pick index at 0.
-            TagNode resultNode = (TagNode)statsNode[0];
-            // get text data from HTML node
-            stats = resultNode.getText().toString();
+	
+	
+	
+	private String amazonReturnDetails(String barcode) throws InvalidKeyException, NoSuchAlgorithmException, ParserConfigurationException, SAXException, IOException{
+		
+		
+		SignedRequestsHelper hq = new SignedRequestsHelper();
+		
+		Map<String, String> map = new HashMap<String, String>();
+	
+		map.put("AssociateTag", "PutYourAssociateTagHere");
+		map.put("Keywords", "662248910017");
+		map.put("Operation", "ItemSearch");
+		map.put("SearchIndex", "All");
+		map.put("ResponseGroup", "EditorialReview, Small, Images");
+		map.put("Service", "AWSECommerceService");
+		map.put("Version", "2011-08-01");
+		
+		
+		String signedUrl = hq.sign(map);
+		
+		URL url = null;
+		String inputLine;
+
+		String theXML = "";
+		
+		
+		try {
+		    url = new URL(signedUrl);
+		} catch (MalformedURLException e) {
+		    e.printStackTrace();
+		}
+		BufferedReader in;
+		try {
+		    URLConnection con = url.openConnection();
+		    con.setReadTimeout( 1000 ); //1 second
+		    in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		    while ((inputLine = in.readLine()) != null) {
+		    	theXML = inputLine;
+		        //System.out.println(inputLine);
+		    }
+		    in.close();
+
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		
+
+		return theXML;
+				//theTest(theXML);
+		
+	}
+	
+	
+	private static Map<String,String> parseXML(String xml) throws ParserConfigurationException, SAXException, IOException{
+		
+		Map<String,String> xmlValues = new HashMap<String,String>();
+		
+		boolean isFirst = true;
+		
+	    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    DocumentBuilder builder = factory.newDocumentBuilder();
+	    InputSource is = new InputSource(new StringReader(xml));
+	    Document doc = builder.parse(is);
+
+        // normalize text representation
+        doc.getDocumentElement ().normalize ();
+
+
+
+        NodeList listOfPersons = doc.getElementsByTagName("ItemAttributes");
+
+
+        for(int s=0; s<listOfPersons.getLength() ; s++){
+
+
+            Node firstPersonNode = listOfPersons.item(s);
+            if(firstPersonNode.getNodeType() == Node.ELEMENT_NODE && isFirst){
+
+
+                Element firstPersonElement = (Element)firstPersonNode;
+
+             // PRODUCT GROUP
+                NodeList ProductGroupNodeElement = firstPersonElement.getElementsByTagName("ProductGroup");
+                if(ProductGroupNodeElement.getLength() == 1){
+                    Element ProductGroupElement = (Element)ProductGroupNodeElement.item(0);
+
+                    NodeList ProductGroupText = ProductGroupElement.getChildNodes();
+                    xmlValues.put("ProductGroup", ((Node)ProductGroupText.item(0)).getNodeValue().trim());
+                	
+                }
+                else
+                {
+                	xmlValues.put("ProductGroup", "");
+                }
+                
+                
+                
+                //TITLE
+                NodeList lastNameList = firstPersonElement.getElementsByTagName("Title");
+                if(lastNameList.getLength() == 1){
+                	
+                Element lastNameElement = (Element)lastNameList.item(0);
+
+                NodeList textLNList = lastNameElement.getChildNodes();
+                		xmlValues.put("Title", ((Node)textLNList.item(0)).getNodeValue().trim());
+                }
+                else
+                {
+                	xmlValues.put("Title", "");
+                }
+
+                
+
+                //MANUFACTURER
+                NodeList firstNameList = firstPersonElement.getElementsByTagName("Manufacturer");
+                if(firstNameList.getLength() == 1){
+                	
+                	                Element firstNameElement = (Element)firstNameList.item(0);
+
+                NodeList textFNList = firstNameElement.getChildNodes();
+                		xmlValues.put("Manufacturer", ((Node)textFNList.item(0)).getNodeValue().trim());
+                }
+                else
+                {
+                	xmlValues.put("Manufacturer", "");           	
+                }
+                
+                // AUTHOR
+                NodeList authorNodeElement = firstPersonElement.getElementsByTagName("Author");
+                if(authorNodeElement.getLength() == 1){
+                    Element authorNameElement = (Element)authorNodeElement.item(0);
+
+                    NodeList authorText = authorNameElement.getChildNodes();
+                    xmlValues.put("Author", ((Node)authorText.item(0)).getNodeValue().trim());
+                	
+                }
+                else
+                {
+                	xmlValues.put("Author", "");
+                	
+                }
+                
+                // ARTIST
+                NodeList artistNodeElement = firstPersonElement.getElementsByTagName("Artist");
+                if(artistNodeElement.getLength() == 1){
+                    Element artistNameElement = (Element)artistNodeElement.item(0);
+
+                    NodeList artistText = artistNameElement.getChildNodes();
+
+                    xmlValues.put("Artist", ((Node)artistText.item(0)).getNodeValue().trim());
+                	
+                }
+                else
+                {
+                	xmlValues.put("Artist", "");
+                }
+                
+                isFirst = false;
+
+            }//end of if clause
+            
+
+        }//end of for loop with s var
+        
+isFirst = true;
+        
+        NodeList listofDesc = doc.getElementsByTagName("EditorialReviews");
+
+
+        for(int s=0; s<listofDesc.getLength() ; s++){
+
+
+            Node firstPersonNode = listofDesc.item(s);
+            if(firstPersonNode.getNodeType() == Node.ELEMENT_NODE && isFirst){
+
+
+                Element firstPersonElement = (Element)firstPersonNode;
+
+                //CONTENT
+                NodeList firstNameList = firstPersonElement.getElementsByTagName("Content");
+                
+	                Element firstNameElement = (Element)firstNameList.item(0);
+	
+	                NodeList textFNList = firstNameElement.getChildNodes();
+
+	                xmlValues.put("Content", ((Node)textFNList.item(0)).getNodeValue().trim());
+                
+                isFirst = false;
+                
+                
+            }
         }
- 
-        // return value
-        return stats;
-    }
+        
+        isFirst = true;
+        
+        NodeList offerSummary = doc.getElementsByTagName("OfferSummary");
+
+
+        for(int s=0; s<offerSummary.getLength() ; s++){
+
+
+            Node firstPersonNode = offerSummary.item(s);
+            if(firstPersonNode.getNodeType() == Node.ELEMENT_NODE && isFirst){
+
+
+                Element firstPersonElement = (Element)firstPersonNode;
+
+                //CONTENT
+                NodeList firstNameList = firstPersonElement.getElementsByTagName("FormattedPrice");
+                
+	                Element firstNameElement = (Element)firstNameList.item(0);
+	
+	                NodeList textFNList = firstNameElement.getChildNodes();
+
+	                xmlValues.put("Price", ((Node)textFNList.item(0)).getNodeValue().trim());
+                
+                isFirst = false;
+                
+                
+            }
+        }
+        
+        isFirst = true;
+        
+        NodeList mediumImage = doc.getElementsByTagName("LargeImage");
+
+
+        for(int s=0; s<mediumImage.getLength() ; s++){
+
+
+            Node medImageNode = mediumImage.item(s);
+            if(medImageNode.getNodeType() == Node.ELEMENT_NODE && isFirst){
+
+
+                Element medElement = (Element)medImageNode;
+
+                //MEDIUM IMAGE
+                NodeList firstNameList = medElement.getElementsByTagName("URL");
+                
+	                Element firstNameElement = (Element)firstNameList.item(0);
+	
+	                NodeList textFNList = firstNameElement.getChildNodes();
+	                
+	                xmlValues.put("Image", ((Node)textFNList.item(0)).getNodeValue().trim());
+                
+                isFirst = false;
+                
+                
+            }
+        }
+        
+        return xmlValues;
+
+	}
 	
 	
 
@@ -239,9 +477,36 @@ public class MainActivity extends Activity {
                         public void run() {
                             //txtScanResult.setText(result);
                             String value = "";
+                            String test = "";
+                            
+                            String item = "";
+                            String title = "";
+                            String manufacturer = "";
+                            String artist = "";
+                            String author = "";
+                            String description = "";
+                            String price = "";
+                            String image = "";
                             try {
-                            	value = getBlogStats(result);
-                            	txtScanResult.setText(value);
+                            	// scrape html to get result of title
+
+                            	//txtScanResult.setText(value);
+                            	test = amazonReturnDetails(result);
+                            	
+                        		item = parseXML(test).get("ProductGroup");
+                        		title = parseXML(test).get("Title");
+                        		manufacturer =  parseXML(test).get("Manufacturer");
+                        		artist =  parseXML(test).get("Artist");
+                        		author =  parseXML(test).get("Author");
+                        		description =  parseXML(test).get("Content");
+                        		price =  parseXML(test).get("Price");
+                        		image =  parseXML(test).get("Image");
+                        		
+                        		doc1 = Jsoup.parse(description);
+                        		description = doc1.text();
+                            	
+                        		
+                            	
 								//Log.d("---------", getBlogStats());
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
@@ -261,10 +526,25 @@ public class MainActivity extends Activity {
                             	//intent.putExtra("barcode",result);
                             intent.putExtras(extras);
                             ****/
+                            
+                            
                             intent.putExtra("Uniqid","from_Main"); 
-                            intent.putExtra("title", value);
+                            intent.putExtra("title", title);
+                            intent.putExtra("description", description);
+                            intent.putExtra("category", item);                        
+                            intent.putExtra("price", price);
+                            intent.putExtra("image", image);
+                            intent.putExtra("manufacturer", manufacturer);
+                            
+                            if(item.equals("Book") || item.equals("eBooks")){
+                            	intent.putExtra("author", author);
+                            }
+                            if(item.equals("Music")){
+                            	intent.putExtra("artist", artist);
+                            }
                             
                             
+
                             
                             startActivity(intent); 
                             finish();

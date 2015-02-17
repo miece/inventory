@@ -38,5 +38,8 @@
     <string name="forgotten_password">Password Reset</string>
     <string name="title_activity_password_reset">Reset Password</string>
     <string name="hello_world">Hello world!</string>
+    
+    <string name="edit"> Edit </string>
+    <string name="delete"> Delete </string>
 
 </resources>

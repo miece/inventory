@@ -26,11 +26,11 @@ public final class R {
 		public static final int zxinglib_decode = 0x7f070018;
 		public static final int zxinglib_decode_failed = 0x7f070019;
 		public static final int zxinglib_decode_succeeded = 0x7f07001a;
-		public static final int zxinglib_preview_view = 0x7f070036;
+		public static final int zxinglib_preview_view = 0x7f070037;
 		public static final int zxinglib_quit = 0x7f07001b;
 		public static final int zxinglib_return_scan_result = 0x7f07001c;
-		public static final int zxinglib_status_view = 0x7f070038;
-		public static final int zxinglib_viewfinder_view = 0x7f070037;
+		public static final int zxinglib_status_view = 0x7f070039;
+		public static final int zxinglib_viewfinder_view = 0x7f070038;
 	}
 	public static final class layout {
 		public static final int zxinglib_capture = 0x7f030008;
